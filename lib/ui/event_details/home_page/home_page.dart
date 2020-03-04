@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:local_events_app/app_state.dart';
 import 'package:local_events_app/model/category.dart';
 import 'package:local_events_app/model/event.dart';
-import 'package:local_events_app/ui/event_details/home_page/event_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'package:local_events_app/styleguide.dart';
 
 import 'package:local_events_app/ui/event_details/home_page/category_widget.dart';
 import 'package:local_events_app/ui/event_details/home_page/home_page_background.dart';
+import 'package:local_events_app/ui/event_details/event_details/event_details_page.dart';
+import 'package:local_events_app/ui/event_details/home_page/event_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -73,8 +74,18 @@ class HomePage extends StatelessWidget {
                             for (final event in events.where((e) => e
                                 .categoryIds
                                 .contains(appState.selectedCategoryId)))
-                              EventWidget(
-                                event: event,
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EventDetailsPage(event: event),
+                                    ),
+                                  );
+                                },
+                                child: EventWidget(
+                                  event: event,
+                                ),
                               )
                           ],
                         ),
